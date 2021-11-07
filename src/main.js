@@ -9,8 +9,7 @@ var mapOptions = {
     zoomControl: true,
 };
 
-var map = new naver.maps.Map('map', mapOptions);
-
+var map = new naver.maps.Map("map", mapOptions);
 
 var markerOptions = {
     position: new naver.maps.LatLng(37.553149, 126.968881),
