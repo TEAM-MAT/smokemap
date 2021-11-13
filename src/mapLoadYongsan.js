@@ -4,8 +4,8 @@ const container = document.querySelector("div#map");
 
 const mapOptions = {
     //center: new K.LatLng(37.5349106, 126.981069), //용산구 가운데(임의 설정)
-    center: new K.LatLng(37.566352778, 126.977952778), //용산구 가운데(임의 설정)
-    level: 5,
+    center: new K.LatLng(37.496389, 126.956889), //용산구 가운데(임의 설정)
+    level: 4,
 };
 
 const map = new K.Map(container, mapOptions);
