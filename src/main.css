@@ -1,0 +1,26 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    display: flex;
+}
+
+nav#districtSelection {
+    width: 20%;
+    height: 800px;
+
+    text-align: center;
+}
+
+#districtSelection ul {
+    padding: 0;
+    list-style-position: inside;
+    list-style-type: none;
+}
+
+div#map {
+    width: 80%;
+    height: 600px;
+}
