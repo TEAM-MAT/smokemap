@@ -1,32 +1,31 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="흡연구역 지도">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <title>Smoking Map Korea</title>
-    <script type="text/javascript"
-        src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=n57rz45gr5"></script>
-    <link rel="stylesheet" href="src/main.css">
-</head>
-
-<body>
-    <header>
-        <h1>흡연구역 지도</h1>
-    </header>
-    <main>
-        <nav id="districtSelection">
-            <ul>
-                <li>용산구</li>
-            </ul>
-        </nav>
-        <div id="map"></div>
-    </main>
-    <script src="src/mapLoadYongsan.js">
-    </script>
-</body>
-
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Smoking Map Korea</title>
+        <!-- kakao map api -->
+        <script
+            type="text/javascript"
+            id="kakao"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=16dd5e746f2f51ee27ab7feaee8cd210&libraries=services,clusterer,drawing"
+        ></script>
+        <link rel="stylesheet" href="src/main.css" />
+    </head>
+    <body>
+        <header>
+            <h1>흡연구역 지도</h1>
+        </header>
+        <main>
+            <nav id="districtSelection">
+                <ul>
+                    <li id="0" onclick="areaSelect(this.id)">용산구</li>
+                    <li id="1" onclick="areaSelect(this.id)">영등포구</li>
+                </ul>
+            </nav>
+            <div id="map"></div>
+        </main>
+        <script src="src/mapLoadYongsan.js"></script>
+    </body>
 </html>

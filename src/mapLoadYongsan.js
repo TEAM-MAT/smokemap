@@ -1,48 +1,60 @@
+// kakao map 기본 설정
+K = kakao.maps;
+const container = document.querySelector("div#map");
+
 const mapOptions = {
-    center: new naver.maps.LatLng(37.5349106, 126.981069), //용산구 가운데(임의 설정)
-    zoom: 13,
-    mapTypeId: naver.maps.MapTypeId.NORMAL,
-    scaleControl: true,
-    logoControl: true,
-    mapDataControl: true,
-    mapTypeControl: false,
-    zoomControl: true,
-    mapDataControl: true,
-    MapDataControlOptions: 10,
+    //center: new K.LatLng(37.5349106, 126.981069), //용산구 가운데(임의 설정)
+    center: new K.LatLng(37.566352778, 126.977952778), //용산구 가운데(임의 설정)
+    level: 5,
 };
 
-const map = new naver.maps.Map(document.querySelector("div#map"), mapOptions);
+const map = new K.Map(container, mapOptions);
+//지도의 타입
+map.setMapTypeId(K.MapTypeId.ROADMAP);
+//확대·축소 컨트롤
+const zoomControl = new K.ZoomControl();
+map.addControl(zoomControl, K.ControlPosition.LEFT);
+//copyright 위치
+map.setCopyrightPosition(K.CopyrightPosition.BOTTOMLEFT, true);
 
-let url =
-    "https://api.odcloud.kr/api/15073796/v1/uddi:17fbd06c-45bb-48aa-9be7-b26dbc708c9c?page=1&perPage=1000&serviceKey=D2qnBHkgbrVY8slQnmwVcLKIAZX4wnBWB12e79vGvusWLq%2F2Ve%2BCboT85nkdPt2mcy0tQGO8eTssdNoYBfEDmQ%3D%3D";
+//data.go.kr API Service Key
+GOVDATA_API_KEY =
+    "D2qnBHkgbrVY8slQnmwVcLKIAZX4wnBWB12e79vGvusWLq%2F2Ve%2BCboT85nkdPt2mcy0tQGO8eTssdNoYBfEDmQ%3D%3D";
+//
 
-fetch(url)
-    .then((res) => res.json())
-    .then((out) => {
-        console.log("JSON loaded");
-        markingAll(out.data);
-    })
-    .catch((err) => {
-        console.log("JSON load failed");
-    });
+const url = [
+    {
+        name: "용산구",
+        link: `https://api.odcloud.kr/api/15073796/v1/uddi:17fbd06c-45bb-48aa-9be7-b26dbc708c9c?page=1&perPage=1000&serviceKey=${GOVDATA_API_KEY}`,
+    },
+    {
+        name: "영등포구",
+        link: `https://api.odcloud.kr/api/15069051/v1/uddi:2653cc01-60d7-4e8b-81f4-80b24a39d8f6?page=1&perPage=1000&serviceKey=${GOVDATA_API_KEY}`,
+    },
+];
+function areaSelect(areaSelection) {
+    const areaLink = url[areaSelection].link;
+    fetch(areaLink)
+        .then((res) => res.json())
+        .then((out) => {
+            console.log(out);
+            console.log("JSON Loaded");
+            markingAll(out.data);
+        })
+        .catch((error) => console.log("JSON Load Error"));
+}
 
 function markingAll(data) {
     let cnt = 1;
-    const ICON_STYLE =
-        "margin: 0; padding: 5px; font-size: 0.2vw; border: 10px solid #2E86C1; border-radius: 15px 15px 15px 0px; background-color:#eee;";
+    const currentBounds = new K.LatLngBounds();
     while (cnt < data.length) {
-        const markerOptions = {
-            position: new naver.maps.LatLng(
-                data[cnt]["위도"],
-                data[cnt]["경도"]
-            ),
-            map: map,
-            title: data[cnt]["서울특별시 용산구 설치 위치"],
-            icon: {
-                content: `<h3 style="${ICON_STYLE}">${data[cnt]["서울특별시 용산구 설치 위치"]}</h3>`,
-            },
-        };
-        const marker = new naver.maps.Marker(markerOptions);
+        const tmpData = data[cnt];
+        if (tmpData["위도"] >= 35) {
+            const tmpLatLng = new K.LatLng(tmpData["위도"], tmpData["경도"]);
+            const tmlMarker = new K.Marker({ map: map, position: tmpLatLng });
+            currentBounds.extend(tmpLatLng);
+        } //오류 데이터 수정되면 if 안에 부분만 살리기
         cnt = cnt + 1;
     }
+    map.setBounds(currentBounds);
 }
