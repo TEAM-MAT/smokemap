@@ -3,8 +3,7 @@ K = kakao.maps;
 const container = document.querySelector("div#map");
 
 const mapOptions = {
-    //center: new K.LatLng(37.5349106, 126.981069), //용산구 가운데(임의 설정)
-    center: new K.LatLng(37.496389, 126.956889), //용산구 가운데(임의 설정)
+    center: new K.LatLng(37.496389, 126.956889), //숭실대학교(임의 설정)
     level: 4,
 };
 
@@ -20,8 +19,7 @@ map.setCopyrightPosition(K.CopyrightPosition.BOTTOMLEFT, true);
 //data.go.kr API Service Key
 GOVDATA_API_KEY =
     "D2qnBHkgbrVY8slQnmwVcLKIAZX4wnBWB12e79vGvusWLq%2F2Ve%2BCboT85nkdPt2mcy0tQGO8eTssdNoYBfEDmQ%3D%3D";
-//
-
+// smoking area data
 const url = [
     {
         name: "용산구",
@@ -32,12 +30,20 @@ const url = [
         link: `https://api.odcloud.kr/api/15069051/v1/uddi:2653cc01-60d7-4e8b-81f4-80b24a39d8f6?page=1&perPage=1000&serviceKey=${GOVDATA_API_KEY}`,
     },
 ];
+
+//loading data
 function areaSelect(areaSelection) {
+    for (let index = 0; index < 2; index++) {
+        if (index !== Number(areaSelection)) {
+            document.getElementById(areaSelection).classList.add("selected");
+        } else {
+            document.getElementById(areaSelection).classList.remove("selected");
+        }
+    }
     const areaLink = url[areaSelection].link;
     fetch(areaLink)
         .then((res) => res.json())
         .then((out) => {
-            console.log(out);
             console.log("JSON Loaded");
             markingAll(out.data);
         })
@@ -56,5 +62,5 @@ function markingAll(data) {
         } //오류 데이터 수정되면 if 안에 부분만 살리기
         cnt = cnt + 1;
     }
-    map.setBounds(currentBounds);
+    map.setBounds(currentBounds, 16);
 }
