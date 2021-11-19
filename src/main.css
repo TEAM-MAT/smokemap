@@ -1,3 +1,8 @@
+@import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
+
+* {
+    font-family: "NanumSquare", Arial, Helvetica, sans-serif;
+}
 html {
     margin: 0;
     padding: 0;
@@ -7,11 +12,23 @@ main {
     display: flex;
 }
 
+@media screen and (max-width: 768px) {
+    main {
+        display: initial;
+    }
+}
+
 nav#districtSelection {
     width: 20%;
     height: 800px;
 
     text-align: center;
+}
+@media screen and (max-width: 768px) {
+    nav#districtSelection {
+        display: inline;
+        text-align: center;
+    }
 }
 
 #districtSelection ul {
@@ -20,7 +37,43 @@ nav#districtSelection {
     list-style-type: none;
 }
 
+#districtSelection li {
+    margin: 5px;
+
+    border-color: rgb(211, 211, 211);
+    border-width: 3px;
+    border-style: solid;
+    transition: transform 0.5s;
+}
+
+#districtSelection li:hover {
+    background-color: lightgrey;
+
+    border: rgb(119, 136, 153);
+    border-width: 3px;
+    border-style: solid;
+    box-shadow: 0px 5px 5px -3px rgba(255, 100, 100, 0.702);
+
+    transform: translate(0, -3px);
+}
+
+@media screen and (max-width: 768px) {
+    #districtSelection li {
+        display: inline-block;
+    }
+}
+
+li.selected {
+    background-color: lightgrey;
+}
+
 div#map {
     width: 80%;
     height: 600px;
+}
+
+@media screen and (max-width: 768px) {
+    div#map {
+        width: 100%;
+    }
 }

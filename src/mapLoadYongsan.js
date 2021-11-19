@@ -22,27 +22,33 @@ GOVDATA_API_KEY =
 // smoking area data
 const urls = [
     {
+        index: 0,
         name: "서울특별시 용산구",
         link: `https://api.odcloud.kr/api/15073796/v1/uddi:17fbd06c-45bb-48aa-9be7-b26dbc708c9c?page=1&perPage=1000&serviceKey=${GOVDATA_API_KEY}`,
     },
     {
+        index: 1,
         name: "서울특별시 영등포구",
         link: `https://api.odcloud.kr/api/15069051/v1/uddi:2653cc01-60d7-4e8b-81f4-80b24a39d8f6?page=1&perPage=1000&serviceKey=${GOVDATA_API_KEY}`,
     },
     {
+        index: 2,
         name: "인천 서구",
         link: `https://api.odcloud.kr/api/15029136/v1/uddi:c9e96d93-2210-4ffc-9d4b-fe2eee897053?page=1&perPage=1000&serviceKey=${GOVDATA_API_KEY}`,
     },
     {
+        index: 3,
         name: "경기도 안양시",
         link: `https://api.odcloud.kr/api/15060926/v1/uddi:2fbc5375-a15d-4907-9482-ecc12da41af2?page=1&perPage=1000&serviceKey=${GOVDATA_API_KEY}`,
     },
     {
+        index: 4,
         name: "경상북도 칠곡군",
         link: `https://api.odcloud.kr/api/15033733/v1/uddi:61cfbad0-be32-4e88-8ffd-d708efd5f378?page=1&perPage=1000&serviceKey=${GOVDATA_API_KEY}`,
     },
 
     {
+        index: 5,
         name: "세종특별자치시",
         link: `https://api.odcloud.kr/api/15029191/v1/uddi:5166ad8c-b19d-4a9b-b30c-c8011b889776_201912102205?page=1&perPage=1000?page=1&perPage=1000&serviceKey=${GOVDATA_API_KEY}`,
     },
@@ -52,12 +58,14 @@ var markers = [];
 
 //loading data
 function areaSelect(areaNum, areaSelection) {
-    console.log(areaSelection);
-    for (let index = 0; index < urls.length; index++) {
-        if (index !== Number(areaNum)) {
-            document.getElementById(areaNum).classList.add("selected");
+    for (var index in urls) {
+        console.log(index, areaNum);
+        if (index != Number(areaNum)) {
+            document.getElementById(index).classList.remove("selected");
+            console.log(index, "added");
         } else {
-            document.getElementById(areaNum).classList.remove("selected");
+            document.getElementById(index).classList.add("selected");
+            console.log(index, "deleted");
         }
     }
     const areaLink = urls[areaNum].link;
