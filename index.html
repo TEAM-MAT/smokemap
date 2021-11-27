@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="Description" content="대한민국 흡연구역 지도">
+  <meta name="keywords" content="흡연구역, 지도, 담배, 흡연">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:image" content="https://i.imgur.com/JC7snYQ.png">
+  <meta property="og:description" content="대한민국의 흡연구역을 지도로 표현한 사이트로, 6곳의 정보가 포함되어 있습니다.">
+  <meta property="og:title" content="대한민국 흡연구역 지도">
   <title>Smoking Map Korea</title>
   <!-- kakao map api -->
   <script type="text/javascript" id="kakao"
@@ -14,27 +19,27 @@
 
 <body>
   <header>
-    <h1 class="bold">흡연구역 지도 <span id="selected"></span></h1>
+    <h1><strong>흡연구역</strong>지도<span id="selected"></span></h1>
   </header>
   <main>
     <nav id="districtSelection">
       <ul>
-        <li id="0" onclick="areaSelect(this.id, this.innerText)" class="">
+        <li id="0" onclick="areaSelect(this.id, this.innerText)">
           서울특별시 용산구
         </li>
-        <li id="1" onclick="areaSelect(this.id, this.innerText)" class="">
+        <li id="1" onclick="areaSelect(this.id, this.innerText)">
           서울특별시 영등포구
         </li>
-        <li id="2" onclick="areaSelect(this.id, this.innerText)" class="">
+        <li id="2" onclick="areaSelect(this.id, this.innerText)">
           인천광역시 서구
         </li>
-        <li id="3" onclick="areaSelect(this.id, this.innerText)" class="">
+        <li id="3" onclick="areaSelect(this.id, this.innerText)">
           경기도 안양시
         </li>
-        <li id="4" onclick="areaSelect(this.id, this.innerText)" class="">
+        <li id="4" onclick="areaSelect(this.id, this.innerText)">
           경상북도 칠곡군
         </li>
-        <li id="5" onclick="areaSelect(this.id, this.innerText)" class="">
+        <li id="5" onclick="areaSelect(this.id, this.innerText)">
           세종특별자치시
         </li>
       </ul>
