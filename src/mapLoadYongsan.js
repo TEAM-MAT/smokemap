@@ -59,13 +59,10 @@ var markers = [];
 //loading data
 function areaSelect(areaNum, areaSelection) {
     for (var index in urls) {
-        console.log(index, areaNum);
         if (index != Number(areaNum)) {
             document.getElementById(index).classList.remove("selected");
-            console.log(index, "added");
         } else {
             document.getElementById(index).classList.add("selected");
-            console.log(index, "deleted");
         }
     }
     const areaLink = urls[areaNum].link;
@@ -80,6 +77,9 @@ function areaSelect(areaNum, areaSelection) {
         })
         .catch((error) => console.log("JSON Load Error"));
 }
+
+const geocoder = new K.services.Geocoder();
+var infowindow = new K.InfoWindow({ zindex: 1 });
 
 function markingAll(data) {
     //deleting previous markers
@@ -97,6 +97,22 @@ function markingAll(data) {
         if (tmpData["위도"] >= 35) {
             const tmpLatLng = new K.LatLng(tmpData["위도"], tmpData["경도"]);
             const tmpMarker = new K.Marker({ map: map, position: tmpLatLng });
+
+            K.event.addListener(tmpMarker, "click", function () {
+                searchDetailAddrFromCoords(
+                    tmpLatLng,
+                    function (result, status) {
+                        if (status === K.services.Status.OK) {
+                            console.log(result[0].address.address_name);
+                            infowindow.setContent(`<div class="infoWindow"><p><img src="https://i.imgur.com/3c7TeY7.png" style="height:1em;">
+                            <span>${result[0].address.address_name}</span></p>
+                            <a href="https://map.kakao.com/link/search/${result[0].address.address_name}}"><p>길찾기</p></a></div>
+                            `);
+                            infowindow.open(map, tmpMarker);
+                        }
+                    }
+                );
+            });
             currentBounds.extend(tmpLatLng);
             markers.push(tmpMarker);
         } //오류 데이터 수정되면 if 안에 부분만 살리기
@@ -104,4 +120,9 @@ function markingAll(data) {
     }
     map.setBounds(currentBounds, 16);
     return currentBounds;
+}
+
+function searchDetailAddrFromCoords(coords, callback) {
+    // 좌표로 법정동 상세 주소 정보를 요청합니다
+    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 }

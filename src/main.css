@@ -77,3 +77,11 @@ div#map {
         width: 100%;
     }
 }
+
+.infoWindow {
+    background-color: lightgray;
+    z-index: 999;
+}
+.infoWindow * {
+    margin: 0;
+}
