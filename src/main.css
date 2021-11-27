@@ -81,7 +81,20 @@ div#map {
 .infoWindow {
     background-color: lightgray;
     z-index: 999;
+    display: flex;
+    padding: 5px;
+    font-size: 1em;
 }
 .infoWindow * {
-    margin: 0;
+    margin: 1px;
+}
+.infoWindow a,
+a:visited,
+a:hover {
+    color: black;
+    text-decoration: none;
+    background-color: #87cefa;
+}
+.infoWindow a:hover {
+    background-color: #73b1d8;
 }

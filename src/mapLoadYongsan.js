@@ -79,7 +79,7 @@ function areaSelect(areaNum, areaSelection) {
 }
 
 const geocoder = new K.services.Geocoder();
-var infowindow = new K.InfoWindow({ zindex: 1 });
+var infowindow = new K.CustomOverlay({});
 
 function markingAll(data) {
     //deleting previous markers
@@ -97,18 +97,17 @@ function markingAll(data) {
         if (tmpData["위도"] >= 35) {
             const tmpLatLng = new K.LatLng(tmpData["위도"], tmpData["경도"]);
             const tmpMarker = new K.Marker({ map: map, position: tmpLatLng });
-
             K.event.addListener(tmpMarker, "click", function () {
                 searchDetailAddrFromCoords(
                     tmpLatLng,
                     function (result, status) {
                         if (status === K.services.Status.OK) {
-                            console.log(result[0].address.address_name);
                             infowindow.setContent(`<div class="infoWindow"><p><img src="https://i.imgur.com/3c7TeY7.png" style="height:1em;">
-                            <span>${result[0].address.address_name}</span></p>
+                            <p>${result[0].address.address_name}</p></p>
                             <a href="https://map.kakao.com/link/search/${result[0].address.address_name}}"><p>길찾기</p></a></div>
                             `);
-                            infowindow.open(map, tmpMarker);
+                            infowindow.setPosition(tmpLatLng);
+                            infowindow.setMap(map);
                         }
                     }
                 );
